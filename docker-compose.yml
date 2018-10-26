@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  sync:
+    build: .
+    environment:
+      - SIMPLEFIN_ACCESS_USER
+      - SIMPLEFIN_ACCESS_PASSWORD
+      - SIMPLEFIN_ACCESS_URL
+      - SIMPLEFIN_ACCOUNT_NAME
+      - YNAB_API_TOKEN
+      - YNAB_BUDGET_NAME
+      - YNAB_ACCOUNT_NAME
