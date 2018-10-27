@@ -58,7 +58,7 @@ do () -> try
       account_id: account.id
       date: moment.unix(t.posted).format 'YYYY-MM-DD'
       amount: t.amount * 1000 # convert to milliunits
-      payee_name: t.description
+      payee_name: if payee = t.description.match(/Payee\:\s+(.+)$/) then payee[1] else t.description
       memo: t.description
       import_id: md5 t.id
       cleared: "cleared"
