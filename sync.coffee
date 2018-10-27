@@ -61,6 +61,7 @@ do () -> try
       payee_name: t.description
       memo: t.description
       import_id: md5 t.id
+      cleared: "cleared"
     }
   total = duplicate = 0
   for transaction from ynab_trx
