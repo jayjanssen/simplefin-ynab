@@ -15,6 +15,7 @@ do () -> try
     'SIMPLEFIN_ACCESS_PASSWORD'
     'SIMPLEFIN_ACCESS_URL'
     'SIMPLEFIN_ACCOUNT_NAME'
+    'TRANSACTION_AGE_DAYS'
     'YNAB_API_TOKEN'
     'YNAB_BUDGET_NAME'
   ]
@@ -22,13 +23,15 @@ do () -> try
   if missing_envs.length > 0
     throw new Error "Missing envs: #{missing_envs.join ', '}"
 
+  start = moment().subtract(process.env.TRANSACTION_AGE_DAYS, 'days')
+
   try
     data = await request.get {
       auth: {
         user: process.env.SIMPLEFIN_ACCESS_USER
         pass: process.env.SIMPLEFIN_ACCESS_PASSWORD
       }
-      url: process.env.SIMPLEFIN_ACCESS_URL + '/accounts'
+      url: process.env.SIMPLEFIN_ACCESS_URL + "/accounts?start-date=#{start.format 'X'}"
       json: true
     }
   catch err
