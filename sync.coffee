@@ -6,9 +6,6 @@ ynab = require 'ynab'
 moment = require 'moment'
 md5 = require 'md5'
 
-simplefin_get_transactions = () ->
-
-
 do () -> try
   required_envs = [
     'SIMPLEFIN_ACCESS_USER'
