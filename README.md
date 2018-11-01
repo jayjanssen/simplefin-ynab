@@ -16,7 +16,7 @@ You can run this as a docker container, or just download this repository, instal
 3. Use the 'Connect an app' function.  This will give you a "SETUP token".  
 4. Base64 decode the token to get a Setup URL and send a POST to the url:
 ```
-curl -X POST `echo '$SIMPLEFIN_SETUP_TOKEN' | base64 -D
+curl -X POST `echo '$SIMPLEFIN_SETUP_TOKEN' | base64 -D`
 ```
 5. The above should spit out a url in this format: `https://<very long hex username>:<very long hex password>@bridge.simplefin.org/simplefin` or similar.  The username will be your SIMPLEFIN_ACCESS_USER env variable, the password your SIMPLEFIN_ACCESS_PASSWORD and your SIMPLEFIN_ACCESS_URL will mostly likely be https://bridge.simplefin.org/simplefin, or the above url without the user:password@ part.   
 6. Run `curl <above URL>/accounts`.  This will give you a JSON file that lists your connected accounts.   Take note of the "name" parameter of the account you want, this will be your SIMPLEFIN_ACCOUNT_NAME environment variable.  
@@ -49,7 +49,9 @@ Roughly,
 
 ### Docker
 
-docker-compose provided.  You can build your own or pull from docker hub.  
+1. `git clone`
+2. Create a .env file with all your environment variables in it
+3. `docker-compose up --build`
 
 ## Caveats
 
@@ -59,7 +61,7 @@ docker-compose provided.  You can build your own or pull from docker hub.
 
 ## Contributing
 
-I'm happy to merge PRs that don't break my process.
+I'm happy to merge PRs that improve the script provided it doesn't break things for me.
 
 ## Wishlist
 
