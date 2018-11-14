@@ -66,7 +66,7 @@ do () -> try
   total = duplicate = 0
   for transaction from ynab_trx
     # Entry Memos are temporary and replaced with the actual transaction later.  Don't write them to YNAB.
-    continue if transaction.description.includes "Entry Memo Posted Today"
+    continue if transaction.memo.includes "Entry Memo Posted Today"
     try
       await ynab_api.transactions.createTransactions budget.id, {transaction}
       total += 1
