@@ -53,7 +53,15 @@ do () -> try
 
   # console.log util.inspect account
 
-  ynab_trx = transactions.map (t) ->
+  ynab_trx = transactions
+  # Entry Memos are temporary and replaced with the actual transaction later.  Don't write them to YNAB.
+  .filter (t) -> !t.description.includes "Entry Memo Posted Today"
+
+  # Skip Pre-authoriations
+  .filter (t) -> !t.description.includes "Pre auth"
+
+  # Transform simplefin transaction into ynab transaction
+  .map (t) ->
     {
       account_id: account.id
       date: moment.unix(t.posted).format 'YYYY-MM-DD'
@@ -65,8 +73,6 @@ do () -> try
     }
   total = duplicate = 0
   for transaction from ynab_trx
-    # Entry Memos are temporary and replaced with the actual transaction later.  Don't write them to YNAB.
-    continue if transaction.memo.includes "Entry Memo Posted Today"
     try
       await ynab_api.transactions.createTransactions budget.id, {transaction}
       total += 1
