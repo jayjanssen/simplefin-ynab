@@ -65,7 +65,7 @@ do () -> try
     {
       account_id: account.id
       date: moment.unix(t.posted).format 'YYYY-MM-DD'
-      amount: t.amount * 1000 # convert to milliunits
+      amount: Math.round t.amount * 1000 # convert to milliunits
       payee_name: if payee = t.description.match(/Payee\:\s+(.+)$/) then payee[1].substr(0,50) else t.description.substr(0,50)
       memo: t.description
       import_id: md5 t.id
