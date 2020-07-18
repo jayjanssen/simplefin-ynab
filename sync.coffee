@@ -15,6 +15,7 @@ do () -> try
     'TRANSACTION_AGE_DAYS'
     'YNAB_API_TOKEN'
     'YNAB_BUDGET_NAME'
+    'YNAB_ACCOUNT_NAME'
   ]
   missing_envs = required_envs.filter (env) -> not process.env[env]?
   if missing_envs.length > 0
